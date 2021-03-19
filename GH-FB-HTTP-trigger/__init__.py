@@ -13,8 +13,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     sim_type=body['sim']
     if sim_type=="MC":
         print("Detected MC sim")
-        if len(body)==3 and type(body['trials']=='int' and type(body['user_name'])=='string'):
-            print('All is good')
+        if type(body['trials']=='int' and type(body['user_name'])=='string'):
+            print('All is well. Sairam.')
             #Forward request to Github REST API
             
             #Upon success, add IST time & send to FB
