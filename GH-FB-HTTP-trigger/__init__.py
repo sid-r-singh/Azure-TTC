@@ -35,7 +35,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             auth = firebase.auth()
 
             # Log the user in
-            user = auth.sign_in_with_email_and_password('abc@xyz.com', 'abc@xyz.com')
+            fb_user = os.environ["fb_user_email"]
+            fb_pswd = os.environ["fb_pswd"]
+            user = auth.sign_in_with_email_and_password(fb_user, fb_pswd)
             url = 'https://mt-iot-brn.firebaseio.com/tg-gh-fb-logs.json?auth='+ user['idToken']
             headers = {
             'Content-Type': 'application/json'
