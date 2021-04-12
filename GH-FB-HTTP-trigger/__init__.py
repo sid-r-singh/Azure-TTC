@@ -57,23 +57,23 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         #Upon success, add IST time & send to FB
             
             #FB setup
-            config = {
-            "apiKey": os.environ["fb_apiKey"],
-            "authDomain": os.environ["fb_authDomain"],
-            "databaseURL": os.environ["fb_databaseURL"],
-            "storageBucket": os.environ["fb_storageBucket"]
-            }
-            firebase = pyrebase.initialize_app(config)
-            auth = firebase.auth()
+            # config = {
+            # "apiKey": os.environ["fb_apiKey"],
+            # "authDomain": os.environ["fb_authDomain"],
+            # "databaseURL": os.environ["fb_databaseURL"],
+            # "storageBucket": os.environ["fb_storageBucket"]
+            # }
+            # firebase = pyrebase.initialize_app(config)
+            # auth = firebase.auth()
 
             # Log the user in
-            fb_user = os.environ["fb_user_email"]
-            fb_pswd = os.environ["fb_pswd"]
-            user = auth.sign_in_with_email_and_password(fb_user, fb_pswd)
-            url = 'https://mt-iot-brn.firebaseio.com/tg-gh-fb-logs.json?auth='+ user['idToken']
-            headers = {
-            'Content-Type': 'application/json'
-            }
+            # fb_user = os.environ["fb_user_email"]
+            # fb_pswd = os.environ["fb_pswd"]
+            # user = auth.sign_in_with_email_and_password(fb_user, fb_pswd)
+            # url = 'https://mt-iot-brn.firebaseio.com/tg-gh-fb-logs.json?auth='+ user['idToken']
+            # headers = {
+            # 'Content-Type': 'application/json'
+            # }
             
             #Add time info to payload
             time_zone = pytz.timezone('Asia/Kolkata')
@@ -83,16 +83,33 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
             
             #Send data to FB
-            data = body
+            # data = body
+            # response = requests.request(
+            # 'POST',
+            # url,
+            # json=data,
+            # )
+
+            #Send data to TG
+            url = 'https://api.telegram.org/bot'+os.environ['tg_bot_token']+'/sendMessage'
+            json_to_str = json.dumps(body,indent=2, sort_keys=True)
+            chat_id = str(os.environ["tg_admin_chat_id"])
+
+            headers = {
+            'Content-Type': 'application/json'
+            }
+            data = "{\"chat_id\": \""+chat_id+"\", \"text\":"+ json_to_str+ "}"
             response = requests.request(
             'POST',
             url,
-            json=data,
+            data=data,
+            headers=headers,
             )
+
 
             #Print server response
             print(response)
-            print(response.json())
+            #print(response.json())
             
         else:
             print("Bad request / request not well formatted")
