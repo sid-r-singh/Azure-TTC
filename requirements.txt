@@ -5,3 +5,4 @@
 azure-functions
 pyrebase
 pytz
+names
