@@ -42,7 +42,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 )
                 r.raise_for_status()
                 status=r.status_code
-                print(x)
             except requests.exceptions.HTTPError as err:
                 print('HTTP error occured:')
                 print(err)
@@ -91,7 +90,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             # )
 
             #Send data to TG
-            url = 'https://api.telegram.org/bot'+os.environ['tg_bot_token']+'/sendMessage'
+            url = 'https://api.telegram.org/bot'+str(os.environ['tg_bot_token'])+'/sendMessage'
             json_to_str = json.dumps(body,indent=2, sort_keys=True)
             chat_id = str(os.environ["tg_admin_chat_id"])
 
