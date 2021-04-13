@@ -109,6 +109,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
             #Print server response
             print(response)
+            logging.info(response)
             #print(response.json())
             
         else:
