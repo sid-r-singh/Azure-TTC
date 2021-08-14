@@ -4,14 +4,14 @@ This repo contains code for a Azure function written in Python. TTC stands for t
 ## 📄 Details
 
 ### ❏  When is the function invoked ?
-  A Telegram 🤖 (bot) written in Python is deployed on Heroku which carries out conversation with user. The bot is programmed to extract the following parameters:
-  - which program to run 
-  - how many iterations of it
+  A Telegram 🤖 (bot) written in Python is deployed on Heroku which carries out conversation with a user. The bot is programmed to extract the following parameters:
+  - name of program to run (as of now there is only one i.e. Monte Carlo program)
+  - no. of iterations of the program to be run
   Upon confirmation from the user, this info. is delivered to this function via HTTP Post request.
 
 ### ❏ What is the role of this serverless function ?
 It has 2 main roles:
-- **Telemetry** : receives information from a Telegram bot (installed on Heroku) & then takes further action based on the inputs.
+- **Telemetry** : logs the details of the user requesting program execution & sends it to a Telegram channel. This is done just to aid in troubleshooting, in future.
 - **Control** : the function controls the execution of Monte-Carlo program. After vefying that all inputs are valid (checking for spam), it allows the execution of the main (Monte-Carlo) program.
 
 ### ❏ Why is this an educational project ?
